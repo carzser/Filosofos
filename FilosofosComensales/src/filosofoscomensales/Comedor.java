@@ -19,9 +19,8 @@ public class Comedor extends Applet{
     public Timer timer = new Timer();
     private TimerTask actualizar;
 
-    public Comedor(Interface frame, String tipo) {
+    public Comedor(Interface frame) {
         this.frame = frame;
-        this.tipo = tipo;
         
         Random r = new Random();
         int low = 2;
@@ -32,12 +31,11 @@ public class Comedor extends Applet{
     }
     
     
-    @Override
     public void dibujar(Graphics g){
         ImageIcon imagenComedor = new ImageIcon("ruta.png");
         imagenComedor.paintIcon(this, this.getGraphics(), 0, 0);
         for (int i = 0; i < this.cantidad; i++) {
-            Ten[i].getImagen().paintIcon(this,this.getGraphics(),Ten[i].getCoordenadas[0],Ten[i].getCoordenadas[1]);
+            Ten[i].getImagen().paintIcon(this,this.getGraphics(),Ten[i].getCoordenadas()[0],Ten[i].getCoordenadas()[1]);
             Fil[i].getImagenFil().paintIcon(this,this.getGraphics(),Fil[i].getCoordFil()[0],Fil[i].getCoordFil()[1]);
             Fil[i].getImagenEstado().paintIcon(this,this.getGraphics(),Fil[i].getCoordEstado()[0],Fil[i].getCoordEstado()[1]);
         }
@@ -67,7 +65,7 @@ public class Comedor extends Applet{
     private void iniciarFilosofos(){
         Ten = new Tenedor[this.cantidad];
         for (int i = 0; i < this.cantidad; i++) {
-            Ten[i] = new Tenedor();
+            Ten[i] = new Tenedor(i);
             //INSERTAR COORDENADAS DE TENEDORES(SEGUNDO 25 DEL VIDEO)
         }
         

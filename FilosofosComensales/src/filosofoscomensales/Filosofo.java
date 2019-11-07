@@ -173,6 +173,10 @@ public class Filosofo extends Thread{
     public void setCoordComida(int[] coordComida) {
         this.coordComida = coordComida;
     }
+
+    public int getPlatos() {
+        return platos;
+    }
     
     
 
