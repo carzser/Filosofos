@@ -53,6 +53,17 @@ public class Filosofo extends Thread{
     }
     
     
+    @Override
+    public void run(){
+        try {
+            System.out.println(nombre+" "+tiempo);             
+            pensar();
+        } catch (InterruptedException ex) {
+           
+        }
+    }
+    
+    
     
     public synchronized void pensar() throws InterruptedException{
         System.out.println(this.nombre + "pensando...");
@@ -177,6 +188,17 @@ public class Filosofo extends Thread{
     public int getPlatos() {
         return platos;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public Tenedor getTenDerecha() {
+        return tenDerecha;
+    }
+
+   
+    
     
     
 

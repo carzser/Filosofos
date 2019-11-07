@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package filosofoscomensales;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Carlos
- */
+
 public class Interface extends javax.swing.JFrame implements ActionListener{
 
     /**
@@ -20,6 +15,8 @@ public class Interface extends javax.swing.JFrame implements ActionListener{
     public Interface() {
         initComponents();
     }
+    
+    Comedor comida;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,20 +30,20 @@ public class Interface extends javax.swing.JFrame implements ActionListener{
         numFilosofosTextoLabel = new javax.swing.JLabel();
         numFilosofosLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        filosofosTable = new javax.swing.JTable();
         iniciarButton = new javax.swing.JButton();
+        pausaButton = new javax.swing.JButton();
+        reanudarButton = new javax.swing.JButton();
+        reiniciarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 300));
 
         numFilosofosTextoLabel.setText("Numero de filosofos aleatorio");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        filosofosTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nombre", "Estado", "Comidas Restantes"
@@ -60,12 +57,33 @@ public class Interface extends javax.swing.JFrame implements ActionListener{
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(filosofosTable);
 
         iniciarButton.setText("Iniciar");
         iniciarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 iniciarButtonActionPerformed(evt);
+            }
+        });
+
+        pausaButton.setText("Pausa");
+        pausaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pausaButtonActionPerformed(evt);
+            }
+        });
+
+        reanudarButton.setText("Reanudar");
+        reanudarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reanudarButtonActionPerformed(evt);
+            }
+        });
+
+        reiniciarButton.setText("Reiniciar");
+        reiniciarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reiniciarButtonActionPerformed(evt);
             }
         });
 
@@ -75,28 +93,42 @@ public class Interface extends javax.swing.JFrame implements ActionListener{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iniciarButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(numFilosofosTextoLabel)
-                        .addGap(28, 28, 28)
-                        .addComponent(numFilosofosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(168, 297, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(numFilosofosTextoLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(numFilosofosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(iniciarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(pausaButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(reanudarButton)
+                                .addGap(14, 14, 14)
+                                .addComponent(reiniciarButton)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(iniciarButton)
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numFilosofosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numFilosofosTextoLabel))
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(iniciarButton)
+                            .addComponent(pausaButton)
+                            .addComponent(reanudarButton)
+                            .addComponent(reiniciarButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(numFilosofosTextoLabel))
+                    .addComponent(numFilosofosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -104,11 +136,55 @@ public class Interface extends javax.swing.JFrame implements ActionListener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void iniciarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarButtonActionPerformed
-        Comedor comida = new Comedor(this);
+        Comedor comida = new Comedor(this, filosofosTable);
+        this.comida = comida;
         comida.actualizar();
         comida.iniciarSimulacion();
+        iniciarButton.setVisible(false);
+        
     }//GEN-LAST:event_iniciarButtonActionPerformed
 
+    private void pausaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pausaButtonActionPerformed
+        try {
+            comida.pausarSimulacion();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pausaButtonActionPerformed
+
+    private void reanudarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reanudarButtonActionPerformed
+       comida.reanudarSimulacion();
+    }//GEN-LAST:event_reanudarButtonActionPerformed
+
+    private void reiniciarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reiniciarButtonActionPerformed
+         
+            comida.destroy();
+            DefaultTableModel model = (DefaultTableModel)(filosofosTable.getModel());
+            model.setRowCount(0);
+            
+        Comedor comida = new Comedor(this, filosofosTable);
+        this.comida = comida;
+        comida.actualizar();
+        comida.iniciarSimulacion();
+    }//GEN-LAST:event_reiniciarButtonActionPerformed
+
+    
+    public void modificarTabla(Comedor c){
+        DefaultTableModel model = (DefaultTableModel)(filosofosTable.getModel());
+        model.setRowCount(0);
+        Filosofo[] fs = c.getFil();
+        
+        for (Filosofo f : fs) {          
+            model.addRow(new Object[]
+                        {f.getId(), f.getEstado(), f.getPlatos()});
+        }
+        
+       
+    }
+    
+    public void agregarCantidad(int cantidad){
+       numFilosofosLabel.setText(cantidad+"");
+    }
     /**
      * @param args the command line arguments
      */
@@ -145,11 +221,14 @@ public class Interface extends javax.swing.JFrame implements ActionListener{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable filosofosTable;
     private javax.swing.JButton iniciarButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel numFilosofosLabel;
     private javax.swing.JLabel numFilosofosTextoLabel;
+    private javax.swing.JButton pausaButton;
+    private javax.swing.JButton reanudarButton;
+    private javax.swing.JButton reiniciarButton;
     // End of variables declaration//GEN-END:variables
 
     @Override
