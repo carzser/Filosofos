@@ -28,10 +28,10 @@ public class Filosofo extends Thread{
     private int coordComida[];
     
     ImageIcon estadoImg[] = {
-                            new ImageIcon("ruta1"),
-                            new ImageIcon("ruta2"),   
-                            new ImageIcon("ruta3"),
-                            new ImageIcon("ruta4"),
+                            new ImageIcon("Pensando.png"),
+                            new ImageIcon("Esperando.png"),   
+                            new ImageIcon("Comiendo.png"),
+                            new ImageIcon("Saciado.png"),
     };
 
     public Filosofo(int id, String nombre, Tenedor tenIzquierda, Tenedor tenDerecha) {
@@ -66,7 +66,7 @@ public class Filosofo extends Thread{
     
     
     public synchronized void pensar() throws InterruptedException{
-        System.out.println(this.nombre + "pensando...");
+        System.out.println(this.nombre + " pensando...");
         this.estado = "Pensando";
         this.imagenEstado = estadoImg[0];  //Imagen de pensando
         sleep(this.tiempo);
@@ -91,7 +91,7 @@ public class Filosofo extends Thread{
             
             System.out.println(this.nombre+ " Comiendo");
             this.estado =  "Comiendo";
-            this.imagenEstado = estadoImg[1];
+            this.imagenEstado = estadoImg[2];
             sleep(this.tiempo);
             this.platos--;
             soltarTenedores();
@@ -103,7 +103,7 @@ public class Filosofo extends Thread{
     
     public synchronized void esperar() throws InterruptedException{
         this.estado = "Esperando";
-        this.imagenEstado = estadoImg[2];
+        this.imagenEstado = estadoImg[1];
         
     }
     
@@ -196,6 +196,12 @@ public class Filosofo extends Thread{
     public Tenedor getTenDerecha() {
         return tenDerecha;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    
 
    
     

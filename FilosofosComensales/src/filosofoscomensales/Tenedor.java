@@ -60,6 +60,14 @@ public class Tenedor {
     public int[] getCoordenadas() {
         return coordenadas;
     }
+
+    public void setCoordenadas(int[] coordenadas) {
+        this.coordenadas = coordenadas;
+    }
+
+    public void setImagen(ImageIcon imagen) {
+        this.imagen = imagen;
+    }
     
     
     
